@@ -1,0 +1,18 @@
+{
+  "name": "relationship-note",
+  "description": "relationship note",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://yajamon@github.com/yajamon/relationship-note.git"
+  },
+  "author": "yajamon <yajamon.tatsuki@gmail.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/yajamon/relationship-note/issues"
+  },
+  "homepage": "https://github.com/yajamon/relationship-note#readme",
+  "private": true
+}
