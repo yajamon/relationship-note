@@ -18,7 +18,6 @@ export default class Migrator implements DBMigrator {
             return event.oldVersion < index+1 && event.newVersion >= index+1
         }).forEach((entity)=>{
             entity.exec(db);
-        })
-
+        });
     }
 }
