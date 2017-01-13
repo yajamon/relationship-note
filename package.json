@@ -3,7 +3,8 @@
   "description": "relationship note",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "build": "webpack"
+    "build": "webpack --color",
+    "watch": "webpack --color --watch"
   },
   "repository": {
     "type": "git",
