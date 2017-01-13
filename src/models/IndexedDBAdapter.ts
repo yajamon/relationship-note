@@ -1,4 +1,6 @@
 import DBConfig from "../interfaces/IndexedDBConfig";
+import DBMigrator from "../interfaces/IndexedDBMigrator";
+
 /**
  * IndexedDBAdapter
  */
@@ -7,7 +9,7 @@ export default class IndexedDBAdapter {
     constructor() {
     }
 
-    open(config:DBConfig){
+    open(config:DBConfig, migrator:DBMigrator){
         let request = indexedDB.open(config.name, config.version);
         request.onsuccess = (event)=>{
             if(!(event.target instanceof IDBOpenDBRequest)){
@@ -25,6 +27,7 @@ export default class IndexedDBAdapter {
             }
             console.log("need Upgrade! old:" + event.oldVersion + " new:"+event.newVersion);
             this.db = event.target.result;
+            migrator.exec(event);
         }
     }
 }
