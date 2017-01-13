@@ -1,11 +1,15 @@
 import DBMigrator from '../interfaces/IndexedDBMigrator'
 import DBMigratorEntity from '../interfaces/IndexedDBMigratorEntity'
 
+import entityAddSubject from './entities/addSubject'
+
 /**
  * Migrator
  */
 export default class Migrator implements DBMigrator {
-    private entities:DBMigratorEntity[] = [];
+    private entities:DBMigratorEntity[] = [
+        new entityAddSubject(),
+    ];
     constructor() {
     }
 
