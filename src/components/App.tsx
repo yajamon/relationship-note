@@ -15,16 +15,20 @@ export class App extends React.Component<undefined, AppState> {
     private dbAdapter = new IndexedDBAdapter();
     constructor() {
         super();
-        this.dbAdapter.open(Config, new Migrator());
         this.state = {
             subjects: []
         };
-
-        this.dbAdapter.readAllSubject().then((subjects:SubjectRecord[]) => {
-            this.setState({
-                subjects: subjects
+        this.dbAdapter.open(Config, new Migrator())
+            .then(() => {
+                console.log('opened Database.', 'read subjects.');
+                return this.dbAdapter.readAllSubject();
+            })
+            .then((subjects: SubjectRecord[]) => {
+                console.log('complete read subjects.');
+                this.setState({
+                    subjects: subjects
+                });
             });
-        });
     }
     render() {
         return (
