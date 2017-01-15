@@ -1,6 +1,8 @@
 import DBConfig from "../interfaces/IndexedDBConfig";
 import DBMigrator from "../interfaces/IndexedDBMigrator";
 
+import SubjectRecord from "../interfaces/subjectRecord";
+
 /**
  * IndexedDBAdapter
  */
@@ -11,16 +13,6 @@ export default class IndexedDBAdapter {
 
     open(config:DBConfig, migrator:DBMigrator){
         let request = indexedDB.open(config.name, config.version);
-        request.onsuccess = (event)=>{
-            if(!(event.target instanceof IDBOpenDBRequest)){
-                return ;
-            }
-            if(!(event.target.result instanceof IDBDatabase)){
-                return ;
-            }
-            console.log("success open database:"+config.name);
-            this.db = event.target.result;
-        };
         request.onupgradeneeded = (event)=>{
             if(!(event instanceof IDBVersionChangeEvent && event.target instanceof IDBOpenDBRequest && event.target.result instanceof IDBDatabase)){
                 return ;
@@ -29,5 +21,33 @@ export default class IndexedDBAdapter {
             this.db = event.target.result;
             migrator.exec(event);
         }
+        return new Promise((resolve) => {
+            request.onsuccess = resolve;
+        }).then((event: Event) => {
+            if (!(event.target instanceof IDBOpenDBRequest && event.target.result instanceof IDBDatabase)) {
+                return;
+            }
+            console.log("success open database:" + config.name);
+            this.db = event.target.result;
+            return this.db;
+        });
+    }
+    readAllSubject() {
+        const transaction = this.db.transaction(['subject'], 'readonly');
+        const subjectStore = transaction.objectStore('subject');
+        const request = subjectStore.openCursor();
+        return new Promise((resolve) => {
+            const subjects:SubjectRecord[] = [];
+            request.onsuccess = (event) => {
+                let request = event.target as IDBRequest;
+                let cursor = request.result as IDBCursorWithValue;
+                if (!cursor) {
+                    resolve(subjects);
+                    return ;
+                }
+                subjects.push(cursor.value as SubjectRecord);
+                cursor.continue();
+            }
+        });
     }
 }
