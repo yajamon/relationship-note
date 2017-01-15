@@ -30,4 +30,21 @@ export default class IndexedDBAdapter {
             migrator.exec(event);
         }
     }
+    readAllSubject() {
+        const transaction = this.db.transaction(['subject'], 'readonly');
+        const subjectStore = transaction.objectStore('subject');
+        const request = subjectStore.openCursor();
+        return new Promise((resolve) => {
+            const subjects:any[] = [];
+            request.onsuccess = (event) => {
+                let request = event.target as IDBRequest;
+                let cursor = request.result as IDBCursorWithValue;
+                if (!cursor) {
+                    resolve(subjects);
+                }
+                subjects.push(cursor.value);
+                cursor.continue();
+            }
+        });
+    }
 }
