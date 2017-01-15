@@ -5,6 +5,7 @@ import Migrator from "../migration/Migrator"
 import IndexedDBAdapter from "../models/IndexedDBAdapter";
 
 import SubjectRecord from "../interfaces/SubjectRecord";
+import {Subject} from "../components/Subject";
 
 interface AppState {
     subjects: SubjectRecord[];
@@ -26,6 +27,11 @@ export class App extends React.Component<undefined, AppState> {
         });
     }
     render() {
-        return <h1>The App!</h1>;
+        return (
+            <div>
+                <h1>The App!</h1>
+                <Subject subjects={this.state.subjects} ></Subject>
+            </div>
+        );
     }
 }
