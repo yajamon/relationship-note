@@ -17,6 +17,11 @@ export class App extends React.Component<undefined, AppState> {
             subjects: []
         };
 
+        this.dbAdapter.readAllSubject().then((subjects:any) => {
+            this.setState({
+                subjects: subjects
+            });
+        });
     }
     render() {
         return <h1>The App!</h1>;
