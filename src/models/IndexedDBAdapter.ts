@@ -43,6 +43,7 @@ export default class IndexedDBAdapter {
                 let cursor = request.result as IDBCursorWithValue;
                 if (!cursor) {
                     resolve(subjects);
+                    return ;
                 }
                 subjects.push(cursor.value as SubjectRecord);
                 cursor.continue();
