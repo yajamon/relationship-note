@@ -13,6 +13,10 @@ export class App extends React.Component<undefined, AppState> {
     constructor() {
         super();
         this.dbAdapter.open(Config, new Migrator());
+        this.state = {
+            subjects: []
+        };
+
     }
     render() {
         return <h1>The App!</h1>;
