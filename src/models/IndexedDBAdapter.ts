@@ -1,6 +1,8 @@
 import DBConfig from "../interfaces/IndexedDBConfig";
 import DBMigrator from "../interfaces/IndexedDBMigrator";
 
+import SubjectRecord from "../interfaces/subjectRecord";
+
 /**
  * IndexedDBAdapter
  */
@@ -35,14 +37,14 @@ export default class IndexedDBAdapter {
         const subjectStore = transaction.objectStore('subject');
         const request = subjectStore.openCursor();
         return new Promise((resolve) => {
-            const subjects:any[] = [];
+            const subjects:SubjectRecord[] = [];
             request.onsuccess = (event) => {
                 let request = event.target as IDBRequest;
                 let cursor = request.result as IDBCursorWithValue;
                 if (!cursor) {
                     resolve(subjects);
                 }
-                subjects.push(cursor.value);
+                subjects.push(cursor.value as SubjectRecord);
                 cursor.continue();
             }
         });

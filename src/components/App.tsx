@@ -4,8 +4,10 @@ import Config from "../configs/DataBase";
 import Migrator from "../migration/Migrator"
 import IndexedDBAdapter from "../models/IndexedDBAdapter";
 
+import SubjectRecord from "../interfaces/SubjectRecord";
+
 interface AppState {
-    subjects: any[];
+    subjects: SubjectRecord[];
 }
 
 export class App extends React.Component<undefined, AppState> {
@@ -17,7 +19,7 @@ export class App extends React.Component<undefined, AppState> {
             subjects: []
         };
 
-        this.dbAdapter.readAllSubject().then((subjects:any) => {
+        this.dbAdapter.readAllSubject().then((subjects:SubjectRecord[]) => {
             this.setState({
                 subjects: subjects
             });
