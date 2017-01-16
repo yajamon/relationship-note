@@ -24,7 +24,7 @@ export class AddSubject extends React.Component<AddSubjectProps, AddSubjectState
     }
     render(){
         return (
-            <form onSubmit={(event)=>{event.preventDefault();}}>
+            <form onSubmit={(event)=>{event.preventDefault(); this.props.onSubmit(this.state.name)}}>
                 <input type="text"
                     value={this.state.name}
                     onChange={(event)=>{this.handleChange(event)}}
