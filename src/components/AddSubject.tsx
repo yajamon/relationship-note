@@ -12,8 +12,8 @@ export class AddSubject extends React.Component<AddSubjectProps, AddSubjectState
     constructor(){
         super();
         this.state = {
-            name: null
-        }
+            name: ""
+        };
     }
     render(){
         return (
