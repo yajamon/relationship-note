@@ -32,7 +32,17 @@ export class App extends React.Component<undefined, AppState> {
             });
     }
     addSubject(name:string){
-
+        this.dbAdapter.addSubject(name).then(() => {
+            console.log('added subject.');
+            return this.dbAdapter.readAllSubject();
+        }).then((subjects: SubjectRecord[]) => {
+            console.log('complete read subjects.');
+            this.setState({
+                subjects: subjects
+            });
+        }).catch((reason) => {
+            console.error('catch error:', reason);
+        });
     }
     render() {
         return (
