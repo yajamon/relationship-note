@@ -50,4 +50,23 @@ export default class IndexedDBAdapter {
             }
         });
     }
+    addSubject(name:string) {
+        const transaction = this.db.transaction(['subject'], 'readwrite');
+        const subjectStore = transaction.objectStore('subject');
+        const request = subjectStore.add({
+            name: name
+        });
+        return new Promise((resolve, reject)=>{
+            request.onsuccess = (event) => {
+                resolve();
+            }
+            request.onerror = (event) => {
+                reject(request.error);
+            }
+        }).catch((reason)=>{
+            console.error('Fail add subject. reason:', reason);
+            transaction.abort();
+            return Promise.reject(reason);
+        });
+    }
 }
