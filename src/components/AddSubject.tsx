@@ -15,9 +15,20 @@ export class AddSubject extends React.Component<AddSubjectProps, AddSubjectState
             name: ""
         };
     }
+    handleChange(event:React.FormEvent<HTMLInputElement>){
+        event.preventDefault();
+        let input = event.target as HTMLInputElement;
+        this.setState({
+            name: input.value
+        });
+    }
     render(){
         return (
             <form onSubmit={(event)=>{event.preventDefault();}}>
+                <input type="text"
+                    value={this.state.name}
+                    onChange={(event)=>{this.handleChange(event)}}
+                />
             </form>
         );
     }
