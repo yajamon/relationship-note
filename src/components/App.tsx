@@ -6,6 +6,7 @@ import IndexedDBAdapter from "../models/IndexedDBAdapter";
 
 import SubjectRecord from "../interfaces/SubjectRecord";
 import {Subject} from "../components/Subject";
+import {AddSubject} from "../components/AddSubject";
 
 interface AppState {
     subjects: SubjectRecord[];
@@ -30,10 +31,14 @@ export class App extends React.Component<undefined, AppState> {
                 });
             });
     }
+    addSubject(name:string){
+
+    }
     render() {
         return (
             <div>
                 <h1>The App!</h1>
+                <AddSubject onSubmit={(name)=>{this.addSubject(name)}} ></AddSubject>
                 <Subject subjects={this.state.subjects} ></Subject>
             </div>
         );
