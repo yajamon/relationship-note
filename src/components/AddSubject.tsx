@@ -29,6 +29,7 @@ export class AddSubject extends React.Component<AddSubjectProps, AddSubjectState
                     value={this.state.name}
                     onChange={(event)=>{this.handleChange(event)}}
                 />
+                <input type="submit" value="Add subject"/>
             </form>
         );
     }
