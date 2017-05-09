@@ -14,6 +14,24 @@ export default class IndexedDBAdapter {
     open(config:DBConfig, migrator:DBMigrator){
         return connector.open(config, migrator);
     }
+    findAll(storeName: string){
+        const transaction = connector.db.transaction([storeName], 'readonly');
+        const store = transaction.objectStore(storeName);
+        const request = store.openCursor();
+        return new Promise((resolve) => {
+            const values:any[] = [];
+            request.onsuccess = (event) => {
+                let request = event.target as IDBRequest;
+                let cursor = request.result as IDBCursorWithValue;
+                if (!cursor) {
+                    resolve(values);
+                    return ;
+                }
+                values.push(cursor.value);
+                cursor.continue();
+            }
+        });
+    }
     readAllSubject() {
         const transaction = connector.db.transaction(['subject'], 'readonly');
         const subjectStore = transaction.objectStore('subject');
