@@ -1,39 +1,21 @@
 import DBConfig from "../interfaces/IndexedDBConfig";
 import DBMigrator from "../interfaces/IndexedDBMigrator";
 
+import connector from "../infrastructure/IndexedDBConnector";
 import SubjectRecord from "../interfaces/subjectRecord";
 
 /**
  * IndexedDBAdapter
  */
 export default class IndexedDBAdapter {
-    private db: IDBDatabase;
     constructor() {
     }
 
     open(config:DBConfig, migrator:DBMigrator){
-        let request = indexedDB.open(config.name, config.version);
-        request.onupgradeneeded = (event)=>{
-            if(!(event instanceof IDBVersionChangeEvent && event.target instanceof IDBOpenDBRequest && event.target.result instanceof IDBDatabase)){
-                return ;
-            }
-            console.log("need Upgrade! old:" + event.oldVersion + " new:"+event.newVersion);
-            this.db = event.target.result;
-            migrator.exec(event);
-        }
-        return new Promise((resolve) => {
-            request.onsuccess = resolve;
-        }).then((event: Event) => {
-            if (!(event.target instanceof IDBOpenDBRequest && event.target.result instanceof IDBDatabase)) {
-                return;
-            }
-            console.log("success open database:" + config.name);
-            this.db = event.target.result;
-            return this.db;
-        });
+        return connector.open(config, migrator);
     }
     readAllSubject() {
-        const transaction = this.db.transaction(['subject'], 'readonly');
+        const transaction = connector.db.transaction(['subject'], 'readonly');
         const subjectStore = transaction.objectStore('subject');
         const request = subjectStore.openCursor();
         return new Promise((resolve) => {
@@ -51,7 +33,7 @@ export default class IndexedDBAdapter {
         });
     }
     addSubject(name:string) {
-        const transaction = this.db.transaction(['subject'], 'readwrite');
+        const transaction = connector.db.transaction(['subject'], 'readwrite');
         const subjectStore = transaction.objectStore('subject');
         const request = subjectStore.add({
             name: name
