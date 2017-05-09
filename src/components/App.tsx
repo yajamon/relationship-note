@@ -7,6 +7,7 @@ import IndexedDBAdapter from "../models/IndexedDBAdapter";
 import SubjectRecord from "../interfaces/SubjectRecord";
 import {Subject} from "../components/Subject";
 import {AddSubject} from "../components/AddSubject";
+import SubjectRepository from "../models/SubjectRepository"
 
 interface AppState {
     subjects: SubjectRecord[];
@@ -22,7 +23,8 @@ export class App extends React.Component<undefined, AppState> {
         this.dbAdapter.open(Config, new Migrator())
             .then(() => {
                 console.log('opened Database.', 'read subjects.');
-                return this.dbAdapter.readAllSubject();
+                const repo = new SubjectRepository(this.dbAdapter);
+                return repo.findAll();
             })
             .then((subjects: SubjectRecord[]) => {
                 console.log('complete read subjects.');
@@ -34,7 +36,8 @@ export class App extends React.Component<undefined, AppState> {
     addSubject(name:string){
         this.dbAdapter.addSubject(name).then(() => {
             console.log('added subject.');
-            return this.dbAdapter.readAllSubject();
+            const repo = new SubjectRepository(this.dbAdapter);
+            return repo.findAll();
         }).then((subjects: SubjectRecord[]) => {
             console.log('complete read subjects.');
             this.setState({

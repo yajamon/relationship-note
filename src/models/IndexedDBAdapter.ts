@@ -32,24 +32,7 @@ export default class IndexedDBAdapter {
             }
         });
     }
-    readAllSubject() {
-        const transaction = connector.db.transaction(['subject'], 'readonly');
-        const subjectStore = transaction.objectStore('subject');
-        const request = subjectStore.openCursor();
-        return new Promise((resolve) => {
-            const subjects:SubjectRecord[] = [];
-            request.onsuccess = (event) => {
-                let request = event.target as IDBRequest;
-                let cursor = request.result as IDBCursorWithValue;
-                if (!cursor) {
-                    resolve(subjects);
-                    return ;
-                }
-                subjects.push(cursor.value as SubjectRecord);
-                cursor.continue();
-            }
-        });
-    }
+
     addSubject(name:string) {
         const transaction = connector.db.transaction(['subject'], 'readwrite');
         const subjectStore = transaction.objectStore('subject');
