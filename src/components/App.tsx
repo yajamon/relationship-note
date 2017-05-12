@@ -9,11 +9,13 @@ import {Subject} from "../components/Subject";
 import {AddSubject} from "../components/AddSubject";
 import SubjectRepository from "../models/SubjectRepository"
 
+import {Observer} from "../interfaces/Observer"
+
 interface AppState {
     subjects: SubjectRecord[];
 }
 
-export class App extends React.Component<undefined, AppState> {
+export class App extends React.Component<undefined, AppState> implements Observer {
     private dbAdapter = new IndexedDBAdapter();
     constructor() {
         super();
@@ -48,6 +50,17 @@ export class App extends React.Component<undefined, AppState> {
             console.error('catch error:', reason);
         });
     }
+    update(){
+        console.log('start update');
+        const repo = new SubjectRepository(this.dbAdapter);
+        repo.findAll().then((subjects: SubjectRecord[]) => {
+            console.log('complete read subjects.');
+            this.setState({
+                subjects: subjects
+            });
+        });
+    }
+
     render() {
         return (
             <div>
