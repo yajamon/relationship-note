@@ -51,4 +51,12 @@ export default class IndexedDBStoreObservable {
         first.observable.addObserver(obs);
     }
 
+    removeObserverByStore(storeName:string, obs:Observer){
+        const filtered = this.observables.filter(value => value.storeName == storeName);
+        if (filtered.length == 0){
+            return;
+        }
+        filtered.forEach(value => value.observable.removeObserver(obs));
+    }
+
 }
