@@ -33,6 +33,34 @@ export default class IndexedDBAdapter {
         });
     }
 
+
+    add(params: AddParameter[]){
+        const storeNames:string[] = params.map(param => param.storeName);
+        const transaction = connector.db.transaction(storeNames, 'readwrite');
+        const promises:Promise<{}>[] = [];
+
+        params.forEach(param => {
+            const store = transaction.objectStore(param.storeName);
+            param.values.forEach(value => {
+                const request = store.add(value);
+                const p = new Promise((resolve, reject)=>{
+                    request.onsuccess = (event) => {
+                        resolve(event);
+                    };
+                    request.onerror = (event) => {
+                        reject(request.error);
+                    }
+                });
+                promises.push(p);
+            });
+        })
+
+        return Promise.all(promises).catch((reason)=>{
+            console.error('Fail add subject. reason:', reason);
+            transaction.abort();
+            return Promise.reject(reason);
+        });
+    }
     addSubject(name:string) {
         const transaction = connector.db.transaction(['subject'], 'readwrite');
         const subjectStore = transaction.objectStore('subject');
@@ -52,4 +80,9 @@ export default class IndexedDBAdapter {
             return Promise.reject(reason);
         });
     }
+}
+
+interface AddParameter {
+    storeName: string;
+    values: any[];
 }
