@@ -26,14 +26,7 @@ export class App extends React.Component<undefined, AppState> implements Observe
         this.dbAdapter.open(Config, new Migrator())
             .then(() => {
                 console.log('opened Database.', 'read subjects.');
-                const repo = new SubjectRepository(this.dbAdapter);
-                return repo.findAll();
-            })
-            .then((subjects: SubjectRecord[]) => {
-                console.log('complete read subjects.');
-                this.setState({
-                    subjects: subjects
-                });
+                this.pullSubjects();
             });
     }
     componentWillMount(){
@@ -54,6 +47,9 @@ export class App extends React.Component<undefined, AppState> implements Observe
     }
     update(){
         console.log('start update');
+        this.pullSubjects();
+    }
+    pullSubjects(){
         const repo = new SubjectRepository(this.dbAdapter);
         repo.findAll().then((subjects: SubjectRecord[]) => {
             console.log('complete read subjects.');
