@@ -34,7 +34,8 @@ export class App extends React.Component<undefined, AppState> {
             });
     }
     addSubject(name:string){
-        this.dbAdapter.addSubject(name).then(() => {
+        const repo = new SubjectRepository(this.dbAdapter);
+        repo.add({name: name}).then(() => {
             console.log('added subject.');
             const repo = new SubjectRepository(this.dbAdapter);
             return repo.findAll();
