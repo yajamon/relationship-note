@@ -35,4 +35,14 @@ export default class IndexedDBStoreObservable {
         return this._instance;
     }
 
+    private createObservableIfNeeded(storeName:string, obs:Observer){
+        if(this.observables.filter(value => value.storeName == storeName).length > 0){
+            return;
+        }
+        this.observables.push({
+            storeName: storeName,
+            observable: new StoreObservableCore()
+        });
+    }
+
 }
