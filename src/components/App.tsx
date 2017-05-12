@@ -35,7 +35,14 @@ export class App extends React.Component<undefined, AppState> implements Observe
                     subjects: subjects
                 });
             });
+    }
+    componentWillMount(){
+        console.log("will mount");
         observable.instance.addObserverToStore("subject", this);
+    }
+    componentWillUnmount(){
+        console.log("will unmount");
+        observable.instance.removeObserverByStore("subject", this);
     }
     addSubject(name:string){
         const repo = new SubjectRepository(this.dbAdapter);
