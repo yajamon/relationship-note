@@ -22,6 +22,17 @@ class StoreObservableCore implements Observable {
 }
 
 export default class IndexedDBStoreObservable {
+    private static _instance: IndexedDBStoreObservable;
     private observables: {storename:string, observable:StoreObservableCore}[] = [];
+
+    private constructor(){
+    }
+
+    static get instance():IndexedDBStoreObservable {
+        if (!this._instance){
+            this._instance = new IndexedDBStoreObservable();
+        }
+        return this._instance;
+    }
 
 }
