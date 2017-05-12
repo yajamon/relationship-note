@@ -10,6 +10,7 @@ import {AddSubject} from "../components/AddSubject";
 import SubjectRepository from "../models/SubjectRepository"
 
 import {Observer} from "../interfaces/Observer"
+import observable from "../infrastructure/IndexedDBStoreObservable"
 
 interface AppState {
     subjects: SubjectRecord[];
@@ -34,18 +35,12 @@ export class App extends React.Component<undefined, AppState> implements Observe
                     subjects: subjects
                 });
             });
+        observable.instance.addObserverToStore("subject", this);
     }
     addSubject(name:string){
         const repo = new SubjectRepository(this.dbAdapter);
         repo.add({name: name}).then(() => {
             console.log('added subject.');
-            const repo = new SubjectRepository(this.dbAdapter);
-            return repo.findAll();
-        }).then((subjects: SubjectRecord[]) => {
-            console.log('complete read subjects.');
-            this.setState({
-                subjects: subjects
-            });
         }).catch((reason) => {
             console.error('catch error:', reason);
         });
