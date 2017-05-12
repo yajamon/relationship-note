@@ -47,7 +47,7 @@ export default class IndexedDBStoreObservable {
 
     addObserverToStore(storeName:string, obs:Observer){
         this.createObservableIfNeeded(storeName, obs);
-        const first = this.observables.filter(value => value.storeName == storeName)[0]
+        const first = this.observables.filter(value => value.storeName == storeName)[0];
         first.observable.addObserver(obs);
     }
 
