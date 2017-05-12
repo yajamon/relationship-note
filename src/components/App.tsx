@@ -7,12 +7,16 @@ import IndexedDBAdapter from "../models/IndexedDBAdapter";
 import SubjectRecord from "../interfaces/SubjectRecord";
 import {Subject} from "../components/Subject";
 import {AddSubject} from "../components/AddSubject";
+import SubjectRepository from "../models/SubjectRepository"
+
+import {Observer} from "../interfaces/Observer"
+import observable from "../infrastructure/IndexedDBStoreObservable"
 
 interface AppState {
     subjects: SubjectRecord[];
 }
 
-export class App extends React.Component<undefined, AppState> {
+export class App extends React.Component<undefined, AppState> implements Observer {
     private dbAdapter = new IndexedDBAdapter();
     constructor() {
         super();
@@ -22,28 +26,39 @@ export class App extends React.Component<undefined, AppState> {
         this.dbAdapter.open(Config, new Migrator())
             .then(() => {
                 console.log('opened Database.', 'read subjects.');
-                return this.dbAdapter.readAllSubject();
-            })
-            .then((subjects: SubjectRecord[]) => {
-                console.log('complete read subjects.');
-                this.setState({
-                    subjects: subjects
-                });
+                this.pullSubjects();
             });
     }
+    componentWillMount(){
+        console.log("will mount");
+        observable.instance.addObserverToStore("subject", this);
+    }
+    componentWillUnmount(){
+        console.log("will unmount");
+        observable.instance.removeObserverByStore("subject", this);
+    }
     addSubject(name:string){
-        this.dbAdapter.addSubject(name).then(() => {
+        const repo = new SubjectRepository(this.dbAdapter);
+        repo.add({name: name}).then(() => {
             console.log('added subject.');
-            return this.dbAdapter.readAllSubject();
-        }).then((subjects: SubjectRecord[]) => {
-            console.log('complete read subjects.');
-            this.setState({
-                subjects: subjects
-            });
         }).catch((reason) => {
             console.error('catch error:', reason);
         });
     }
+    update(){
+        console.log('start update');
+        this.pullSubjects();
+    }
+    pullSubjects(){
+        const repo = new SubjectRepository(this.dbAdapter);
+        repo.findAll().then((subjects: SubjectRecord[]) => {
+            console.log('complete read subjects.');
+            this.setState({
+                subjects: subjects
+            });
+        });
+    }
+
     render() {
         return (
             <div>

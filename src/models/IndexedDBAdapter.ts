@@ -2,7 +2,7 @@ import DBConfig from "../interfaces/IndexedDBConfig";
 import DBMigrator from "../interfaces/IndexedDBMigrator";
 
 import connector from "../infrastructure/IndexedDBConnector";
-import SubjectRecord from "../interfaces/subjectRecord";
+import observable from "../infrastructure/IndexedDBStoreObservable";
 
 /**
  * IndexedDBAdapter
@@ -14,41 +14,60 @@ export default class IndexedDBAdapter {
     open(config:DBConfig, migrator:DBMigrator){
         return connector.open(config, migrator);
     }
-    readAllSubject() {
-        const transaction = connector.db.transaction(['subject'], 'readonly');
-        const subjectStore = transaction.objectStore('subject');
-        const request = subjectStore.openCursor();
+    findAll(storeName: string){
+        const transaction = connector.db.transaction([storeName], 'readonly');
+        const store = transaction.objectStore(storeName);
+        const request = store.openCursor();
         return new Promise((resolve) => {
-            const subjects:SubjectRecord[] = [];
+            const values:any[] = [];
             request.onsuccess = (event) => {
                 let request = event.target as IDBRequest;
                 let cursor = request.result as IDBCursorWithValue;
                 if (!cursor) {
-                    resolve(subjects);
+                    resolve(values);
                     return ;
                 }
-                subjects.push(cursor.value as SubjectRecord);
+                values.push(cursor.value);
                 cursor.continue();
             }
         });
     }
-    addSubject(name:string) {
-        const transaction = connector.db.transaction(['subject'], 'readwrite');
-        const subjectStore = transaction.objectStore('subject');
-        const request = subjectStore.add({
-            name: name
-        });
-        return new Promise((resolve, reject)=>{
-            request.onsuccess = (event) => {
-                resolve();
-            }
-            request.onerror = (event) => {
-                reject(request.error);
-            }
+
+
+    add(params: AddParameter[]){
+        const storeNames:string[] = params.map(param => param.storeName);
+        const transaction = connector.db.transaction(storeNames, 'readwrite');
+        const promises:Promise<{}>[] = [];
+
+        params.forEach(param => {
+            const store = transaction.objectStore(param.storeName);
+            param.values.forEach(value => {
+                const request = store.add(value);
+                const p = new Promise((resolve, reject)=>{
+                    request.onsuccess = (event) => {
+                        resolve(event);
+                    };
+                    request.onerror = (event) => {
+                        reject(request.error);
+                    }
+                });
+                promises.push(p);
+            });
+        })
+
+        return Promise.all(promises).then((values)=>{
+            storeNames.forEach(name =>{
+                observable.instance.notify(name);
+            });
         }).catch((reason)=>{
             console.error('Fail add subject. reason:', reason);
             transaction.abort();
             return Promise.reject(reason);
         });
     }
+}
+
+interface AddParameter {
+    storeName: string;
+    values: any[];
 }
