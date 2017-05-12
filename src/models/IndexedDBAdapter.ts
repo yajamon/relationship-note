@@ -2,7 +2,6 @@ import DBConfig from "../interfaces/IndexedDBConfig";
 import DBMigrator from "../interfaces/IndexedDBMigrator";
 
 import connector from "../infrastructure/IndexedDBConnector";
-import SubjectRecord from "../interfaces/subjectRecord";
 
 /**
  * IndexedDBAdapter
