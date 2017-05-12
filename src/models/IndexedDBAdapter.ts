@@ -2,6 +2,7 @@ import DBConfig from "../interfaces/IndexedDBConfig";
 import DBMigrator from "../interfaces/IndexedDBMigrator";
 
 import connector from "../infrastructure/IndexedDBConnector";
+import observable from "../infrastructure/IndexedDBStoreObservable";
 
 /**
  * IndexedDBAdapter
@@ -54,7 +55,11 @@ export default class IndexedDBAdapter {
             });
         })
 
-        return Promise.all(promises).catch((reason)=>{
+        return Promise.all(promises).then((values)=>{
+            storeNames.forEach(name =>{
+                observable.instance.notify(name);
+            });
+        }).catch((reason)=>{
             console.error('Fail add subject. reason:', reason);
             transaction.abort();
             return Promise.reject(reason);
