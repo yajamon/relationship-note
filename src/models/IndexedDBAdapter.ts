@@ -1,6 +1,3 @@
-import DBConfig from "../interfaces/IndexedDBConfig";
-import DBMigrator from "../interfaces/IndexedDBMigrator";
-
 import connector from "../infrastructure/IndexedDBConnector";
 import observable from "../infrastructure/IndexedDBStoreObservable";
 
@@ -11,9 +8,6 @@ export default class IndexedDBAdapter {
     constructor() {
     }
 
-    open(config:DBConfig, migrator:DBMigrator){
-        return connector.open(config, migrator);
-    }
     findAll(storeName: string){
         const transaction = connector.db.transaction([storeName], 'readonly');
         const store = transaction.objectStore(storeName);

@@ -2,6 +2,7 @@ import * as React from "react";
 
 import Config from "../configs/DataBase";
 import Migrator from "../migration/Migrator"
+import IDBConnector from "../infrastructure/IndexedDBConnector"
 import IndexedDBAdapter from "../models/IndexedDBAdapter";
 
 import SubjectRecord from "../interfaces/SubjectRecord";
@@ -17,13 +18,12 @@ interface AppState {
 }
 
 export class App extends React.Component<undefined, AppState> implements Observer {
-    private dbAdapter = new IndexedDBAdapter();
     constructor() {
         super();
         this.state = {
             subjects: []
         };
-        this.dbAdapter.open(Config, new Migrator())
+        IDBConnector.open(Config, new Migrator())
             .then(() => {
                 console.log('opened Database.', 'read subjects.');
                 this.pullSubjects();
@@ -38,7 +38,7 @@ export class App extends React.Component<undefined, AppState> implements Observe
         observable.instance.removeObserverByStore("subject", this);
     }
     addSubject(name:string){
-        const repo = new SubjectRepository(this.dbAdapter);
+        const repo = new SubjectRepository(new IndexedDBAdapter());
         repo.add({name: name}).then(() => {
             console.log('added subject.');
         }).catch((reason) => {
@@ -50,7 +50,7 @@ export class App extends React.Component<undefined, AppState> implements Observe
         this.pullSubjects();
     }
     pullSubjects(){
-        const repo = new SubjectRepository(this.dbAdapter);
+        const repo = new SubjectRepository(new IndexedDBAdapter());
         repo.findAll().then((subjects: SubjectRecord[]) => {
             console.log('complete read subjects.');
             this.setState({
