@@ -6,7 +6,7 @@ export interface SubjectProps {
     subjects: SubjectRecord[];
 }
 
-export function Subject(props: SubjectProps) {
+export function SubjectList(props: SubjectProps) {
     const subjects = props.subjects.map((subject) => {
         return (
             <li key={subject.id} >{subject.name}</li>
