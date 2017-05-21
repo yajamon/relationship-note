@@ -2,13 +2,13 @@ import * as React from "react";
 
 import SubjectRecord from "../interfaces/SubjectRecord";
 
-export interface SubjectProps {
+interface SubjectStatus {
     subjects: SubjectRecord[];
 }
 
-export class SubjectList extends React.Component<SubjectProps, undefined> {
+export class SubjectList extends React.Component<undefined, SubjectStatus> {
     render() {
-        const subjects = this.props.subjects.map((subject) => {
+        const subjects = this.state.subjects.map((subject) => {
             return (
                 <li key={subject.id} >{subject.name}</li>
             );

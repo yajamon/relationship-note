@@ -64,7 +64,7 @@ export class App extends React.Component<undefined, AppState> implements Observe
             <div>
                 <h1>The App!</h1>
                 <AddSubject onSubmit={(name)=>{this.addSubject(name)}} ></AddSubject>
-                <SubjectList subjects={this.state.subjects} ></SubjectList>
+                <SubjectList />
             </div>
         );
     }
