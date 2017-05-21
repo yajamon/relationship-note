@@ -18,7 +18,6 @@ interface AppState {
 }
 
 export class App extends React.Component<undefined, AppState> implements Observer {
-    private dbAdapter = new IndexedDBAdapter();
     constructor() {
         super();
         this.state = {
@@ -39,7 +38,7 @@ export class App extends React.Component<undefined, AppState> implements Observe
         observable.instance.removeObserverByStore("subject", this);
     }
     addSubject(name:string){
-        const repo = new SubjectRepository(this.dbAdapter);
+        const repo = new SubjectRepository(new IndexedDBAdapter());
         repo.add({name: name}).then(() => {
             console.log('added subject.');
         }).catch((reason) => {
@@ -51,7 +50,7 @@ export class App extends React.Component<undefined, AppState> implements Observe
         this.pullSubjects();
     }
     pullSubjects(){
-        const repo = new SubjectRepository(this.dbAdapter);
+        const repo = new SubjectRepository(new IndexedDBAdapter());
         repo.findAll().then((subjects: SubjectRecord[]) => {
             console.log('complete read subjects.');
             this.setState({
