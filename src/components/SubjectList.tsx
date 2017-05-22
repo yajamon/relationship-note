@@ -5,11 +5,14 @@ import SubjectRepository from "../models/SubjectRepository"
 
 import SubjectRecord from "../interfaces/SubjectRecord";
 
+import {Observer} from "../interfaces/Observer"
+import observable from "../infrastructure/IndexedDBStoreObservable"
+
 interface SubjectStatus {
     subjects: SubjectRecord[];
 }
 
-export class SubjectList extends React.Component<undefined, SubjectStatus> {
+export class SubjectList extends React.Component<undefined, SubjectStatus> implements Observer {
 
     constructor() {
         super();
@@ -21,6 +24,11 @@ export class SubjectList extends React.Component<undefined, SubjectStatus> {
     componentWillMount(){
         console.log("will mount");
         this.pullSubjects();
+        observable.instance.addObserverToStore("subject", this);
+    }
+    componentWillUnmount(){
+        console.log("will unmount");
+        observable.instance.removeObserverByStore("subject", this);
     }
 
     pullSubjects(){
@@ -31,6 +39,10 @@ export class SubjectList extends React.Component<undefined, SubjectStatus> {
                 subjects: subjects
             });
         });
+    }
+
+    update() {
+        this.pullSubjects();
     }
 
     render() {

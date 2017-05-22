@@ -10,14 +10,11 @@ import {SubjectList} from "../components/SubjectList";
 import {AddSubject} from "../components/AddSubject";
 import SubjectRepository from "../models/SubjectRepository"
 
-import {Observer} from "../interfaces/Observer"
-import observable from "../infrastructure/IndexedDBStoreObservable"
-
 interface AppState {
     subjects: SubjectRecord[];
 }
 
-export class App extends React.Component<undefined, AppState> implements Observer {
+export class App extends React.Component<undefined, AppState> {
     constructor() {
         super();
         this.state = {
@@ -28,24 +25,14 @@ export class App extends React.Component<undefined, AppState> implements Observe
                 console.log('opened Database.', 'read subjects.');
             });
     }
-    componentWillMount(){
-        console.log("will mount");
-        observable.instance.addObserverToStore("subject", this);
-    }
-    componentWillUnmount(){
-        console.log("will unmount");
-        observable.instance.removeObserverByStore("subject", this);
-    }
-    addSubject(name:string){
+
+    addSubject(name: string) {
         const repo = new SubjectRepository(new IndexedDBAdapter());
         repo.add({name: name}).then(() => {
             console.log('added subject.');
         }).catch((reason) => {
             console.error('catch error:', reason);
         });
-    }
-    update(){
-        console.log('start update');
     }
 
     render() {
