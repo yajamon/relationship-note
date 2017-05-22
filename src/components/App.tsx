@@ -26,7 +26,7 @@ export class App extends React.Component<undefined, AppState> {
         return (
             <div>
                 <h1>The App!</h1>
-                <AddSubject></AddSubject>
+                <AddSubject />
                 <SubjectList />
             </div>
         );
