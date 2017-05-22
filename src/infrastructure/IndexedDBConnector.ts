@@ -26,8 +26,17 @@ export default class IndexedDBConnector {
         });
     }
 
-    static get db() : IDBDatabase {
-        return this._db;
+    static get db(): Promise<IDBDatabase> {
+        if (this._db) {
+            return Promise.resolve(this._db);
+        }
+        return new Promise((resolve) => {
+            setInterval(() => {
+                if (this._db) {
+                    resolve(this._db);
+                }
+            }, 100);
+        });
     }
 
 }
