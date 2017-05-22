@@ -26,7 +26,6 @@ export class App extends React.Component<undefined, AppState> implements Observe
         IDBConnector.open(Config, new Migrator())
             .then(() => {
                 console.log('opened Database.', 'read subjects.');
-                this.pullSubjects();
             });
     }
     componentWillMount(){
@@ -47,16 +46,6 @@ export class App extends React.Component<undefined, AppState> implements Observe
     }
     update(){
         console.log('start update');
-        this.pullSubjects();
-    }
-    pullSubjects(){
-        const repo = new SubjectRepository(new IndexedDBAdapter());
-        repo.findAll().then((subjects: SubjectRecord[]) => {
-            console.log('complete read subjects.');
-            this.setState({
-                subjects: subjects
-            });
-        });
     }
 
     render() {
