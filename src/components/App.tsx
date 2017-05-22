@@ -26,14 +26,11 @@ export class App extends React.Component<undefined, AppState> {
             });
     }
 
-    addSubject(name: string) {
-    }
-
     render() {
         return (
             <div>
                 <h1>The App!</h1>
-                <AddSubject onSubmit={(name)=>{this.addSubject(name)}} ></AddSubject>
+                <AddSubject></AddSubject>
                 <SubjectList />
             </div>
         );

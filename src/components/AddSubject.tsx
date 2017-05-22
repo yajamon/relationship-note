@@ -1,8 +1,5 @@
 import * as React from "react";
 
-export interface AddSubjectProps{
-    onSubmit(name:string):void;
-}
 import IndexedDBAdapter from "../models/IndexedDBAdapter";
 import SubjectRepository from "../models/SubjectRepository"
 
@@ -10,7 +7,7 @@ interface AddSubjectState {
     name:string;
 }
 
-export class AddSubject extends React.Component<AddSubjectProps, AddSubjectState> {
+export class AddSubject extends React.Component<undefined, AddSubjectState> {
     constructor(){
         super();
         this.state = {
