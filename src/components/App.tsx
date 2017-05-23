@@ -3,7 +3,6 @@ import * as React from "react";
 import Config from "../configs/DataBase";
 import Migrator from "../migration/Migrator"
 import IDBConnector from "../infrastructure/IndexedDBConnector"
-import IndexedDBAdapter from "../models/IndexedDBAdapter";
 
 import {SubjectList} from "../components/SubjectList";
 import {AddSubject} from "../components/AddSubject";
