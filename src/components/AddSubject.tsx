@@ -25,6 +25,9 @@ export class AddSubject extends React.Component<undefined, AddSubjectState> {
         const repo = new SubjectRepository(new IndexedDBAdapter());
         repo.add({name: name}).then(() => {
             console.log('added subject.');
+            this.setState({
+                name: ""
+            });
         }).catch((reason) => {
             console.error('catch error:', reason);
         });
