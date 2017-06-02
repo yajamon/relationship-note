@@ -15,10 +15,7 @@ export class App extends React.Component<undefined, AppState> {
         super();
         this.state = {
         };
-        IDBConnector.open(Config, new Migrator())
-            .then(() => {
-                console.log('opened Database.', 'read subjects.');
-            });
+        IDBConnector.open(Config, new Migrator());
     }
 
     render() {
