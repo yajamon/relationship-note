@@ -2,6 +2,7 @@ import DBMigrator from '../interfaces/IndexedDBMigrator'
 import DBMigratorEntity from '../interfaces/IndexedDBMigratorEntity'
 
 import entityAddSubject from './entities/addSubject'
+import entityAddTagOndRelation from './entities/addTagStoreAndRelation'
 
 /**
  * Migrator
@@ -9,6 +10,7 @@ import entityAddSubject from './entities/addSubject'
 export default class Migrator implements DBMigrator {
     private entities:DBMigratorEntity[] = [
         new entityAddSubject(),
+        new entityAddTagOndRelation(),
     ];
     constructor() {
     }

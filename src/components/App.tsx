@@ -6,6 +6,8 @@ import IDBConnector from "../infrastructure/IndexedDBConnector"
 
 import {SubjectList} from "../components/SubjectList";
 import {AddSubject} from "../components/AddSubject";
+import {TagList} from "../components/TagList";
+import {AddTag} from "../components/AddTag";
 
 interface AppState {
 }
@@ -24,6 +26,8 @@ export class App extends React.Component<undefined, AppState> {
                 <h1>The App!</h1>
                 <AddSubject />
                 <SubjectList />
+                <AddTag />
+                <TagList />
             </div>
         );
     }
