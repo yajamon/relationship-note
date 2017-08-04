@@ -27,7 +27,7 @@ export class AddTag extends React.Component<AddTagProps, AddTagState> {
     onSubmit(name: string) {
         const repo = new TagRepository(new IndexedDBAdapter());
         repo.add({name: name}).then(() => {
-            console.log('added subject.');
+            console.log('added tag.');
             this.setState({
                 name: ""
             });
@@ -43,7 +43,7 @@ export class AddTag extends React.Component<AddTagProps, AddTagState> {
                     value={this.state.name}
                     onChange={(event)=>{this.handleChange(event)}}
                 />
-                <input type="submit" value="Add subject"/>
+                <input type="submit" value="Add tag"/>
             </form>
         );
     }
