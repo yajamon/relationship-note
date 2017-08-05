@@ -2,7 +2,7 @@ import * as React from "react";
 
 export interface ContentSet {
     key: number;
-    conntent: any;
+    content: any;
 }
 
 export interface OrderdListProps {
@@ -10,7 +10,7 @@ export interface OrderdListProps {
 }
 
 export default function OrderdList(props: OrderdListProps) {
-    const list = props.contentList.map(set => (<li key={set.key} >{set.conntent}</li>));
+    const list = props.contentList.map(set => (<li key={set.key} >{set.content}</li>));
     return (
         <ol>{list}</ol>
     );
