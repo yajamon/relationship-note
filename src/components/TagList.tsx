@@ -8,6 +8,7 @@ import TagRecord from "../interfaces/TagRecord";
 import {Observer} from "../interfaces/Observer"
 import observable from "../infrastructure/IndexedDBStoreObservable"
 
+import OrderedList, {ContentSet} from "./OrderedList"
 
 interface TagListProps {
 }
@@ -50,13 +51,14 @@ export class TagList extends React.Component<TagListProps, TagListState> {
     }
 
     render() {
-        const tags = this.state.tags.map((tag) => {
-            return (
-                <li key={tag.id} >{tag.name}</li>
-            );
+        const list:ContentSet[] = this.state.tags.map((tag) => {
+            return {
+                key: tag.id,
+                content: tag.name
+            };
         });
         return (
-            <ol>{tags}</ol>
+            <OrderedList contentList={list} />
         );
     }
 }
