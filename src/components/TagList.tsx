@@ -27,7 +27,7 @@ export class TagList extends React.Component<TagListProps, TagListState> {
 
     componentWillMount(){
         console.log("will mount");
-        this.pullSubjects();
+        this.pullTags();
         observable.instance.addObserverToStore("tag", this);
     }
     componentWillUnmount(){
@@ -35,7 +35,7 @@ export class TagList extends React.Component<TagListProps, TagListState> {
         observable.instance.removeObserverByStore("tag", this);
     }
 
-    pullSubjects(){
+    pullTags(){
         const repo = new TagRepository(new IndexedDBAdapter());
         repo.findAll().then((tags: TagRecord[]) => {
             console.log('complete read subjects.');
@@ -46,7 +46,7 @@ export class TagList extends React.Component<TagListProps, TagListState> {
     }
 
     update() {
-        this.pullSubjects();
+        this.pullTags();
     }
 
     render() {
