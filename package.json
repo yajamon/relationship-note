@@ -1,32 +1,23 @@
 {
   "name": "relationship-note",
-  "description": "relationship note",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "build": "webpack --color",
-    "watch": "webpack --color --watch"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://yajamon@github.com/yajamon/relationship-note.git"
-  },
-  "author": "yajamon <yajamon.tatsuki@gmail.com>",
-  "license": "MIT",
-  "bugs": {
-    "url": "https://github.com/yajamon/relationship-note/issues"
-  },
-  "homepage": "https://github.com/yajamon/relationship-note#readme",
+  "version": "0.1.0",
   "private": true,
-  "devDependencies": {
-    "awesome-typescript-loader": "^3.0.0-beta.18",
-    "source-map-loader": "^0.1.6",
-    "typescript": "^2.1.5",
-    "webpack": "^1.14.0"
-  },
   "dependencies": {
-    "@types/react": "^15.0.0",
-    "@types/react-dom": "^0.14.20",
-    "react": "^15.4.2",
-    "react-dom": "^15.4.2"
+    "react": "^16.2.0",
+    "react-dom": "^16.2.0",
+    "react-scripts-ts": "2.14.0"
+  },
+  "scripts": {
+    "start": "react-scripts-ts start",
+    "build": "react-scripts-ts build",
+    "test": "react-scripts-ts test --env=jsdom",
+    "eject": "react-scripts-ts eject"
+  },
+  "devDependencies": {
+    "@types/jest": "^22.2.2",
+    "@types/node": "^9.6.0",
+    "@types/react": "^16.0.41",
+    "@types/react-dom": "^16.0.4",
+    "typescript": "^2.7.2"
   }
 }

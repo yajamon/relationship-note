@@ -147,5 +147,18 @@ $RECYCLE.BIN/
 
 # End of https://www.gitignore.io/api/vim,node,macos,linux,windows,visualstudiocode
 
-# build directory
-dist
+# See https://help.github.com/ignore-files/ for more about ignoring files.
+
+# testing
+/coverage
+
+# production
+/build
+
+# misc
+.DS_Store
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+
