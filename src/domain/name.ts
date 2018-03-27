@@ -1,4 +1,5 @@
 export class Name {
     constructor(readonly value: string) {
+        throw Error();
     }
 }
