@@ -1,5 +1,6 @@
 export class Name {
-    constructor(readonly value: string) {
-        throw Error();
+    readonly value: string;
+    constructor(value: string) {
+        if (value === '') { throw Error(); }
     }
 }
