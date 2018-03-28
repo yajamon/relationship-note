@@ -2,11 +2,11 @@ import { Name } from './name';
 
 describe('Name', () => {
     it('文字列を引数に生成できる', () => {
-        let _ = new Name('Taro');
+        expect(new Name('Taro')).not.toBeNull();
     });
     it('空文字では生成できない', () => {
         expect(() => {
-            let _ = new Name('');
+            return new Name('');
         }).toThrow();
     });
 });
