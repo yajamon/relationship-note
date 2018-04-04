@@ -14,6 +14,9 @@ describe('Name', () => {
             let param = 'Taro';
             let name = new Name(param);
             expect(name.value).toEqual(param);
+            let param2 = 'Marie';
+            let name2 = new Name(param2);
+            expect(name2.value).toEqual(param2);
         });
     });
 });
