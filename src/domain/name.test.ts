@@ -11,12 +11,10 @@ describe('Name', () => {
     });
     describe('value', () => {
         it('コンストラクタに与えた値と同じ値である', () => {
-            let param = 'Taro';
-            let name = new Name(param);
-            expect(name.value).toEqual(param);
-            let param2 = 'Marie';
-            let name2 = new Name(param2);
-            expect(name2.value).toEqual(param2);
+            let name1 = 'Taro';
+            expect((new Name(name1)).value).toEqual(name1);
+            let name2 = 'Marie';
+            expect((new Name(name2)).value).toEqual(name2);
         });
     });
 });
