@@ -9,4 +9,11 @@ describe('Name', () => {
             return new Name('');
         }).toThrow();
     });
+    describe('value', () => {
+        it('コンストラクタに与えた値と同じ値である', () => {
+            let param = 'Taro';
+            let name = new Name(param);
+            expect(name.value).toEqual(param);
+        });
+    });
 });
