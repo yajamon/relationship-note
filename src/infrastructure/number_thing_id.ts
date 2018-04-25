@@ -1,7 +1,9 @@
 import { ThingId } from '../domain/thing_id';
 
 export class NumberThingId {
-    constructor(readonly value: number) {
-         throw Error('生成できません');
+    readonly value: number;
+    constructor(value: number) {
+        if (value <= 0) { throw Error('生成できません'); }
+        this.value = value;
     }
 }
