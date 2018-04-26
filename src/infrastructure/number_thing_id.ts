@@ -8,6 +8,7 @@ export class NumberThingId implements ThingId {
     }
 
     equals(id: ThingId): boolean {
-        return true;
+        if (! (id instanceof NumberThingId)) { return false; }
+        return this.value === id.value;
     }
 }
