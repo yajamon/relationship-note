@@ -9,4 +9,12 @@ describe('NumberThingId', () => {
             return new NumberThingId(0);
         }).toThrow();
     });
+
+    describe('equals()', () => {
+        it('同じ数字で初期化されたものならtrue', () => {
+            let left = new NumberThingId(1);
+            let right = new NumberThingId(1);
+            expect(left.equals(right)).toBe(true);
+        });
+    });
 });
