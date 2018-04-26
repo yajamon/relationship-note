@@ -1,5 +1,7 @@
 export function* incrementalGenerator(firstReturnValue: number): IterableIterator<number> {
+    let value = firstReturnValue;
     while (true) {
-        yield firstReturnValue;
+        yield value;
+        value += 1;
     }
 }
