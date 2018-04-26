@@ -1,14 +1,13 @@
 import { ThingRepository } from '../domain/thing_repository';
 import { NumberThingId } from './number_thing_id';
 import { Thing } from '../domain/thing';
+import { incrementalGenerator } from './incremental_generator';
 
 export class MapThingRepository implements ThingRepository {
-    private nextId = 1;
+    private idGenerator = incrementalGenerator(1);
 
     nextIdentifier(): NumberThingId {
-        let id = new NumberThingId(this.nextId);
-        this.nextId += 1;
-        return id;
+        return new NumberThingId(this.idGenerator.next().value);
     }
 
     save(thing: Thing) {
