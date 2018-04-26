@@ -8,6 +8,6 @@ export class NumberThingId implements ThingId {
     }
 
     equals(id: ThingId): boolean {
-        return false;
+        return true;
     }
 }
