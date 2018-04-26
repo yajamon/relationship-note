@@ -16,5 +16,10 @@ describe('NumberThingId', () => {
             let right = new NumberThingId(1);
             expect(left.equals(right)).toBe(true);
         });
+        it('違う数字で初期化したものならばfalse', () => {
+            let one = new NumberThingId(1);
+            let two = new NumberThingId(2);
+            expect(one.equals(two)).toBe(false);
+        });
     });
 });
