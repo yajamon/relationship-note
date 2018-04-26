@@ -3,9 +3,12 @@ import { NumberThingId } from './number_thing_id';
 import { Thing } from '../domain/thing';
 
 export class MapThingRepository implements ThingRepository {
+    private nextId = 1;
 
     nextIdentifier(): NumberThingId {
-        return new NumberThingId(1);
+        let id = new NumberThingId(this.nextId);
+        this.nextId += 1;
+        return id;
     }
 
     save(thing: Thing) {
