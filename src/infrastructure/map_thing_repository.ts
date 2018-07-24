@@ -4,16 +4,16 @@ import { Thing } from '../domain/thing';
 import { incrementalGenerator } from './incremental_generator';
 
 export class MapThingRepository implements ThingRepository {
-    private idGenerator = incrementalGenerator(1);
+  private idGenerator = incrementalGenerator(1);
 
-    nextIdentifier(): NumberThingId {
-        return new NumberThingId(this.idGenerator.next().value);
-    }
+  nextIdentifier(): NumberThingId {
+    return new NumberThingId(this.idGenerator.next().value);
+  }
 
-    save(thing: Thing) {
-        // TODO
-    }
-    remove(thing: Thing) {
-        // TODO
-    }
+  save(thing: Thing) {
+    // TODO
+  }
+  remove(thing: Thing) {
+    // TODO
+  }
 }

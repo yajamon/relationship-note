@@ -1,3 +1,3 @@
 export interface ThingId {
-    equals(id: ThingId): boolean;
+  equals(id: ThingId): boolean;
 }
