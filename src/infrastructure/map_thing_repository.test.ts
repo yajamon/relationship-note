@@ -21,6 +21,11 @@ describe('MapThingRepository', () => {
       repo.save(thing);
       let result = repo.findByThingId(id);
       expect(result).toBe(thing);
+
+      // 別のデータが追加されても適切にThingが取得できる
+      repo.save(new Thing(repo.nextIdentifier(), new Name('dust')));
+      let result2 = repo.findByThingId(id);
+      expect(result2).toBe(thing);
     });
   });
 });
