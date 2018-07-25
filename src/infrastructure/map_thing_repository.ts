@@ -6,22 +6,26 @@ import { incrementalGenerator } from './incremental_generator';
 
 export class MapThingRepository implements ThingRepository {
   private idGenerator = incrementalGenerator(1);
-  private thing: Thing;
+  private things: Map<number, Thing> = new Map();
 
   nextIdentifier(): NumberThingId {
     return new NumberThingId(this.idGenerator.next().value);
   }
 
   save(thing: Thing) {
-    // TODO
-    this.thing = thing;
+    if (!(thing.id instanceof NumberThingId)) {
+      return;
+    }
+    this.things.set(thing.id.value, thing);
   }
   remove(thing: Thing) {
     // TODO
   }
-  findByThingId(id: ThingId): Thing | null {
-    // TODO
-    return this.thing;
+  findByThingId(id: ThingId): Thing | null | undefined {
+    if (!(id instanceof NumberThingId)) {
+      return null;
+    }
+    return this.things.get(id.value);
   }
 
 }

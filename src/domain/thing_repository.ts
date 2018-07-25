@@ -5,5 +5,5 @@ export interface ThingRepository {
   nextIdentifier(): ThingId;
   save(thing: Thing): void;
   remove(thing: Thing): void;
-  findByThingId(id: ThingId): Thing | null;
+  findByThingId(id: ThingId): Thing | null | undefined;
 }
