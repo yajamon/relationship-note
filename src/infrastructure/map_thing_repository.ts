@@ -1,4 +1,5 @@
 import { ThingRepository } from '../domain/thing_repository';
+import { ThingId } from '../domain/thing_id';
 import { NumberThingId } from './number_thing_id';
 import { Thing } from '../domain/thing';
 import { incrementalGenerator } from './incremental_generator';
@@ -16,4 +17,9 @@ export class MapThingRepository implements ThingRepository {
   remove(thing: Thing) {
     // TODO
   }
+  findByThingId(id: ThingId): Thing | null {
+    // TODO
+    return null;
+  }
+
 }
