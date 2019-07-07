@@ -2,7 +2,6 @@ import React from "react";
 import { Thing } from "../domain/thing";
 import { Name } from "../domain/name";
 import { ThingFactory } from "../domain/thing_factory";
-import { MapThingRepository } from "../infrastructure/map_thing_repository";
 
 type Prop = {
   onCreate?: (thing: Thing) => void;
