@@ -1,11 +1,24 @@
 import React from "react";
+import { Thing } from "../domain/thing";
+import { Name } from "../domain/name";
+import { ThingId } from "../domain/thing_id";
+import { MapThingRepository } from "../infrastructure/map_thing_repository";
 
-export const ThingCreator: React.FC = props => {
+type Prop = {
+  onCreate?: (thing: Thing) => void;
+};
+export const ThingCreator: React.FC<Prop> = props => {
   const [thingName, setThingName] = React.useState("");
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     e.stopPropagation();
-    console.log(thingName);
+
+    const repo = new MapThingRepository();
+    const id: ThingId = repo.nextIdentifier();
+    const name = new Name(thingName);
+    if (props.onCreate) {
+      props.onCreate(new Thing(id, name));
+    }
   }
 
   return (<form onSubmit={handleSubmit}>
