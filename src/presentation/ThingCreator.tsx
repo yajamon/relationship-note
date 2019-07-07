@@ -2,10 +2,12 @@ import React from "react";
 import { Thing } from "../domain/thing";
 import { Name } from "../domain/name";
 import { ThingId } from "../domain/thing_id";
+import { ThingFactory } from "../domain/thing_factory";
 import { MapThingRepository } from "../infrastructure/map_thing_repository";
 
 type Prop = {
   onCreate?: (thing: Thing) => void;
+  thingFactory: ThingFactory;
 };
 export const ThingCreator: React.FC<Prop> = props => {
   const [thingName, setThingName] = React.useState("");
@@ -13,11 +15,10 @@ export const ThingCreator: React.FC<Prop> = props => {
     e.preventDefault();
     e.stopPropagation();
 
-    const repo = new MapThingRepository();
-    const id: ThingId = repo.nextIdentifier();
     const name = new Name(thingName);
+    const thing = props.thingFactory.create(name)
     if (props.onCreate) {
-      props.onCreate(new Thing(id, name));
+      props.onCreate(thing);
     }
   }
 
