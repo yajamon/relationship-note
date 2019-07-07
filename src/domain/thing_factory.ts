@@ -3,7 +3,7 @@ import { ThingRepository } from "./thing_repository";
 import { Name } from "./name";
 
 export class ThingFactory {
-  constructor(private repository: ThingRepository) {
+  constructor(private readonly repository: ThingRepository) {
   }
   public create(thingName: Name): Thing {
     const id = this.repository.nextIdentifier();
