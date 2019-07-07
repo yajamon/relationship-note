@@ -1,7 +1,6 @@
 import React from "react";
 import { Thing } from "../domain/thing";
 import { Name } from "../domain/name";
-import { ThingId } from "../domain/thing_id";
 import { ThingFactory } from "../domain/thing_factory";
 import { MapThingRepository } from "../infrastructure/map_thing_repository";
 
