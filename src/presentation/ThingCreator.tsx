@@ -13,8 +13,11 @@ export const ThingCreator: React.FC<Prop> = props => {
     e.preventDefault();
     e.stopPropagation();
 
-    const name = new Name(thingName);
-    const thing = props.thingFactory.create(name)
+    const name = Name.create(thingName);
+    if (name.isError) {
+      return;
+    }
+    const thing = props.thingFactory.create(name.ok);
     if (props.onCreate) {
       props.onCreate(thing);
     }
