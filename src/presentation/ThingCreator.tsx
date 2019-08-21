@@ -21,6 +21,7 @@ export const ThingCreator: React.FC<Prop> = props => {
     if (props.onCreate) {
       props.onCreate(thing);
     }
+    setThingName("");
   }
 
   return (<form onSubmit={handleSubmit}>
