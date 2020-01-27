@@ -18,8 +18,8 @@ describe('Name', () => {
       if (obj1.isError || obj2.isError) {
         throw Error();
       }
-      expect(obj1.ok.value).toEqual(name1);
-      expect(obj2.ok.value).toEqual(name2);
+      expect(obj1.value.value).toEqual(name1);
+      expect(obj2.value.value).toEqual(name2);
     });
   });
 });

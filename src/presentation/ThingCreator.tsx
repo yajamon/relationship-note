@@ -17,7 +17,7 @@ export const ThingCreator: React.FC<Prop> = props => {
     if (name.isError) {
       return;
     }
-    const thing = props.thingFactory.create(name.ok);
+    const thing = props.thingFactory.create(name.value);
     if (props.onCreate) {
       props.onCreate(thing);
     }
