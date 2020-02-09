@@ -22,10 +22,16 @@ export const ThingCreator: React.FC<Prop> = props => {
       props.onCreate(thing);
     }
     setThingName("");
-  }
+  };
 
-  return (<form onSubmit={handleSubmit}>
-    <input type="text" value={thingName} onChange={event => setThingName(event.target.value)} />
-    <button type="submit">作成</button>
-  </form >)
-}
+  return (
+    <form onSubmit={handleSubmit}>
+      <input
+        type="text"
+        value={thingName}
+        onChange={event => setThingName(event.target.value)}
+      />
+      <button type="submit">作成</button>
+    </form>
+  );
+};

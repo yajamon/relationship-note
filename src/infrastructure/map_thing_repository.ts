@@ -1,8 +1,8 @@
-import { ThingRepository } from '../domain/thing_repository';
-import { ThingId } from '../domain/thing_id';
-import { NumberThingId } from './number_thing_id';
-import { Thing } from '../domain/thing';
-import { incrementalGenerator } from './incremental_generator';
+import { ThingRepository } from "../domain/thing_repository";
+import { ThingId } from "../domain/thing_id";
+import { NumberThingId } from "./number_thing_id";
+import { Thing } from "../domain/thing";
+import { incrementalGenerator } from "./incremental_generator";
 
 export class MapThingRepository implements ThingRepository {
   private idGenerator = incrementalGenerator(1);
@@ -27,5 +27,4 @@ export class MapThingRepository implements ThingRepository {
     }
     return this.things.get(id.value);
   }
-
 }
