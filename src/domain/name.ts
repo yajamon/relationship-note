@@ -5,7 +5,9 @@ export class Name {
     this.value = value;
   }
   static create(value: string): Result<Name, Error> {
-    if (value === '') { return Err(new Error("空の文字列はだめです")); }
+    if (value === "") {
+      return Err(new Error("空の文字列はだめです"));
+    }
     return Ok(new Name(value));
   }
 }

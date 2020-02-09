@@ -1,5 +1,5 @@
-import { ThingId } from './thing_id';
-import { Thing } from './thing';
+import { ThingId } from "./thing_id";
+import { Thing } from "./thing";
 
 export interface ThingRepository {
   nextIdentifier(): ThingId;
