@@ -5,8 +5,6 @@ import { ThingCreator } from "./presentation/ThingCreator";
 import { ThingFactory } from "./domain/thing_factory";
 import { MapThingRepository } from "./infrastructure/map_thing_repository";
 
-const logo = require("./logo.svg");
-
 class App extends React.Component {
   render() {
     const thingRepository = new MapThingRepository();
