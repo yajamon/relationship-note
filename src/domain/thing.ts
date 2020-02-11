@@ -7,7 +7,7 @@ export class Thing {
 
   constructor(readonly id: ThingId, public name: Name) {}
 
-  public associate(thing: Thing, label: string, description: string) {
+  public associate(thing: Thing, label: string, description: string): void {
     this.associations.push({
       thing: thing,
       label: label,
