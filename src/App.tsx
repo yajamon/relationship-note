@@ -1,9 +1,9 @@
 import * as React from "react";
 import "./App.css";
-
-import { ThingCreator } from "./presentation/ThingCreator";
 import { ThingFactory } from "./domain/thing_factory";
 import { MapThingRepository } from "./infrastructure/map_thing_repository";
+import { SearchThingsByNamePart } from "./presentation/SearchThingsByNamePart";
+import { ThingCreator } from "./presentation/ThingCreator";
 
 class App extends React.Component {
   render() {
@@ -15,8 +15,10 @@ class App extends React.Component {
           thingFactory={thingFactory}
           onCreate={thing => {
             console.log(thing);
+            thingRepository.save(thing);
           }}
         />
+        <SearchThingsByNamePart thingRepository={thingRepository} />
       </div>
     );
   }

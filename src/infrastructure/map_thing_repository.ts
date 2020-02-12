@@ -1,12 +1,13 @@
-import { ThingRepository } from "../domain/thing_repository";
-import { ThingId } from "../domain/thing_id";
-import { NumberThingId } from "./number_thing_id";
 import { Thing } from "../domain/thing";
+import { ThingId } from "../domain/thing_id";
+import { ThingRepository } from "../domain/thing_repository";
 import { incrementalGenerator } from "./incremental_generator";
+import { NumberThingId } from "./number_thing_id";
 
 export class MapThingRepository implements ThingRepository {
   private idGenerator = incrementalGenerator(1);
   private things: Map<number, Thing> = new Map();
+  private subscribers = new Set<() => void>();
 
   nextIdentifier(): NumberThingId {
     return new NumberThingId(this.idGenerator.next().value);
@@ -17,6 +18,7 @@ export class MapThingRepository implements ThingRepository {
       return;
     }
     this.things.set(thing.id.value, thing);
+    this.notifySubscribers();
   }
   remove(thing: Thing) {
     // TODO
@@ -26,5 +28,22 @@ export class MapThingRepository implements ThingRepository {
       return null;
     }
     return this.things.get(id.value);
+  }
+  query(logic: (thing: Thing) => boolean): Thing[] {
+    console.log("query", this.things);
+
+    return Array.from(this.things.values()).filter(logic);
+  }
+
+  subscribe(callback: () => void): void {
+    this.subscribers.add(callback);
+  }
+  unsubscribe(callback: () => void): void {
+    this.subscribers.delete(callback);
+  }
+  notifySubscribers(): void {
+    this.subscribers.forEach(callback => {
+      callback();
+    });
   }
 }
