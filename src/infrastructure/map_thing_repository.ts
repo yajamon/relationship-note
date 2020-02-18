@@ -18,6 +18,7 @@ export class MapThingRepository implements ThingRepository {
       return;
     }
     this.things.set(thing.id.value, thing);
+    this.notifySubscribers();
   }
   remove(thing: Thing) {
     // TODO
