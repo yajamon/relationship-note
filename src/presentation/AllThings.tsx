@@ -11,7 +11,12 @@ export const AllThings: React.FC<Prop> = props => {
   const fetch = () => {
     setThings(props.thingRepository.query(() => true));
   };
-  props.thingRepository.subscribe(fetch);
+  React.useEffect(() => {
+    props.thingRepository.subscribe(fetch);
+    return () => {
+      props.thingRepository.unsubscribe(fetch);
+    };
+  });
 
   const thingListView = things.map(thing => <div>{thing.name.value}</div>);
   return <div>{thingListView}</div>;
