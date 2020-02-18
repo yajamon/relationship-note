@@ -27,4 +27,9 @@ export class MapThingRepository implements ThingRepository {
     }
     return this.things.get(id.value);
   }
+  query(logic: (thing: Thing) => boolean): Thing[] {
+    //console.log("query", this.things);
+
+    return Array.from(this.things.values()).filter(logic);
+  }
 }
