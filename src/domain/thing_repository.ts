@@ -1,7 +1,8 @@
-import { ThingId } from "./thing_id";
+import { Observable } from "./observer";
 import { Thing } from "./thing";
+import { ThingId } from "./thing_id";
 
-export interface ThingRepository {
+export interface ThingRepository extends Observable {
   nextIdentifier(): ThingId;
   save(thing: Thing): void;
   remove(thing: Thing): void;
