@@ -7,7 +7,9 @@ type Prop = {
 };
 export const ThingListView: React.FC<Prop> = props => {
   const thingListView = props.things.map(thing => (
-    <ThingView thing={thing}></ThingView>
+    <div key={thing.id.stringify}>
+      <ThingView thing={thing}></ThingView>
+    </div>
   ));
   return <div>{thingListView}</div>;
 };
