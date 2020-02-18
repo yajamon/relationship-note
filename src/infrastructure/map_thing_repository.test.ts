@@ -29,6 +29,19 @@ describe("MapThingRepository", () => {
       expect(result2).toBe(thing);
     });
   });
+
+  describe("query()", () => {
+    it("Thingの要素を抽出できる", () => {
+      const repo = new MapThingRepository();
+      repo.save(new Thing(repo.nextIdentifier(), unwrap(Name.create("Taro"))));
+      repo.save(new Thing(repo.nextIdentifier(), unwrap(Name.create("Jiro"))));
+      repo.save(new Thing(repo.nextIdentifier(), unwrap(Name.create("Hana"))));
+
+      const result = repo.query(thing => thing.name.value === "Jiro");
+      expect(result.length).toBe(1);
+      expect(result[0].name.value).toBe("Jiro");
+    });
+  });
 });
 
 describe("Observable", () => {

@@ -1,8 +1,8 @@
-import { ThingRepository } from "../domain/thing_repository";
-import { ThingId } from "../domain/thing_id";
-import { NumberThingId } from "./number_thing_id";
 import { Thing } from "../domain/thing";
+import { ThingId } from "../domain/thing_id";
+import { ThingRepository } from "../domain/thing_repository";
 import { incrementalGenerator } from "./incremental_generator";
+import { NumberThingId } from "./number_thing_id";
 
 export class MapThingRepository implements ThingRepository {
   private idGenerator = incrementalGenerator(1);
@@ -28,6 +28,11 @@ export class MapThingRepository implements ThingRepository {
       return null;
     }
     return this.things.get(id.value);
+  }
+  query(logic: (thing: Thing) => boolean): Thing[] {
+    //console.log("query", this.things);
+
+    return Array.from(this.things.values()).filter(logic);
   }
 
   subscribe(callback: () => void): void {

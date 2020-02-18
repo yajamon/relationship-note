@@ -7,4 +7,5 @@ export interface ThingRepository extends Observable {
   save(thing: Thing): void;
   remove(thing: Thing): void;
   findByThingId(id: ThingId): Thing | null | undefined;
+  query(logic: (thing: Thing) => boolean): Thing[];
 }
