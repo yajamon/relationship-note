@@ -30,3 +30,15 @@ describe("MapThingRepository", () => {
     });
   });
 });
+
+describe("Observable", () => {
+  describe("subscribe()", () => {
+    it("通知を受ける", done => {
+      const repo = new MapThingRepository();
+      repo.subscribe(() => {
+        done();
+      });
+      repo.notifySubscribers();
+    });
+  });
+});
