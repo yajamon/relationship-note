@@ -7,6 +7,7 @@ import { incrementalGenerator } from "./incremental_generator";
 export class MapThingRepository implements ThingRepository {
   private idGenerator = incrementalGenerator(1);
   private things: Map<number, Thing> = new Map();
+  private subscribers = new Set<() => void>();
 
   nextIdentifier(): NumberThingId {
     return new NumberThingId(this.idGenerator.next().value);
@@ -17,6 +18,7 @@ export class MapThingRepository implements ThingRepository {
       return;
     }
     this.things.set(thing.id.value, thing);
+    this.notifySubscribers();
   }
   remove(thing: Thing) {
     // TODO
@@ -26,5 +28,17 @@ export class MapThingRepository implements ThingRepository {
       return null;
     }
     return this.things.get(id.value);
+  }
+
+  subscribe(callback: () => void): void {
+    this.subscribers.add(callback);
+  }
+  unsubscribe(callback: () => void): void {
+    this.subscribers.delete(callback);
+  }
+  notifySubscribers(): void {
+    this.subscribers.forEach(callback => {
+      callback();
+    });
   }
 }

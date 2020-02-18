@@ -1,8 +1,5 @@
-export interface Observer {
-  update(): void;
-}
 export interface Observable {
-  addObserver(observer: Observer): void;
-  removeObserver(observer: Observer): void;
-  notifyObservers(): void;
+  subscribe(callback: () => void): void;
+  unsubscribe(callback: () => void): void;
+  notifySubscribers(): void;
 }
