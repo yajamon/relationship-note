@@ -1,6 +1,7 @@
 import React from "react";
 import { Thing } from "../domain/thing";
 import { ThingRepository } from "../domain/thing_repository";
+import { ThingListView } from "./ThingListView";
 
 type Prop = {
   thingRepository: ThingRepository;
@@ -18,6 +19,5 @@ export const AllThings: React.FC<Prop> = props => {
     };
   });
 
-  const thingListView = things.map(thing => <div>{thing.name.value}</div>);
-  return <div>{thingListView}</div>;
+  return <ThingListView things={things}></ThingListView>;
 };
