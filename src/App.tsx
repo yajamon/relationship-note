@@ -15,6 +15,7 @@ class App extends React.Component {
           thingFactory={thingFactory}
           onCreate={thing => {
             console.log(thing);
+            thingRepository.save(thing);
           }}
         />
       </div>
