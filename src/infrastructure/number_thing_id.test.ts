@@ -26,7 +26,7 @@ describe("NumberThingId", () => {
   describe("stringify()", () => {
     it("文字列化", () => {
       const one = new NumberThingId(1);
-      expect(one.stringify()).toBe("1");
+      expect(one.stringify).toBe("1");
     });
   });
 });
