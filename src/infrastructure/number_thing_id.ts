@@ -15,4 +15,8 @@ export class NumberThingId implements ThingId {
     }
     return this.value === id.value;
   }
+
+  stringify(): string {
+    return this.value.toString();
+  }
 }
