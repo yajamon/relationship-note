@@ -1,6 +1,6 @@
 import React from "react";
-import { Thing } from "../domain/thing";
 import { Name } from "../domain/name";
+import { Thing } from "../domain/thing";
 import { ThingFactory } from "../domain/thing_factory";
 
 type Prop = {
@@ -9,7 +9,7 @@ type Prop = {
 };
 export const ThingCreator: React.FC<Prop> = props => {
   const [thingName, setThingName] = React.useState("");
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>): void => {
     e.preventDefault();
     e.stopPropagation();
 
@@ -29,7 +29,7 @@ export const ThingCreator: React.FC<Prop> = props => {
       <input
         type="text"
         value={thingName}
-        onChange={event => setThingName(event.target.value)}
+        onChange={(event): void => setThingName(event.target.value)}
       />
       <button type="submit">作成</button>
     </form>
