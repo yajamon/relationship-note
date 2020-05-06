@@ -1,6 +1,6 @@
 import { Thing } from "../domain/thing";
-import { ThingId } from "../domain/thing_id";
 import { ThingRepository } from "../domain/thing_repository";
+import { ThingId } from "../thing_id";
 import { incrementalGenerator } from "./incremental_generator";
 import { NumberThingId } from "./number_thing_id";
 

@@ -1,4 +1,4 @@
-import { ThingId } from "../domain/thing_id";
+import { ThingId } from "../thing_id";
 
 export class NumberThingId implements ThingId {
   readonly value: number;

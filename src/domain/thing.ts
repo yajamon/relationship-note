@@ -1,6 +1,6 @@
 import { Name } from "../name";
+import { ThingId } from "../thing_id";
 import { Association } from "./association";
-import { ThingId } from "./thing_id";
 
 export class Thing {
   readonly associations: Association[] = [];
