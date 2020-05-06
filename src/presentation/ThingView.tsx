@@ -1,5 +1,5 @@
 import React from "react";
-import { Thing } from "../domain/thing";
+import { Thing } from "../thing";
 
 type Prop = {
   thing: Thing;

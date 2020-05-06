@@ -1,5 +1,5 @@
 import { Name } from "../name";
-import { Thing } from "./thing";
+import { Thing } from "../thing";
 import { ThingRepository } from "./thing_repository";
 
 export class ThingFactory {

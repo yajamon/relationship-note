@@ -1,4 +1,4 @@
-import { Thing } from "./domain/thing";
+import { Thing } from "./thing";
 
 export type Association = {
   thing: Thing;

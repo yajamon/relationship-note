@@ -1,6 +1,6 @@
 import { unwrap } from "@yajamon/result.ts";
-import { Thing } from "../domain/thing";
 import { Name } from "../name";
+import { Thing } from "../thing";
 import { MapThingRepository } from "./map_thing_repository";
 
 describe("MapThingRepository", () => {
