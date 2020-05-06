@@ -1,6 +1,6 @@
 import React from "react";
-import { ThingRepository } from "../domain/thing_repository";
 import { Thing } from "../thing";
+import { ThingRepository } from "../thing_repository";
 import { ThingListView } from "./ThingListView";
 
 type Prop = {

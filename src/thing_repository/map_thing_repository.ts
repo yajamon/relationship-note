@@ -1,7 +1,7 @@
-import { ThingRepository } from "../domain/thing_repository";
 import { Thing } from "../thing";
 import { ThingId } from "../thing_id";
 import { NumberThingId } from "../thing_id/number_thing_id";
+import { ThingRepository } from "../thing_repository";
 import { incrementalGenerator } from "./incremental_generator";
 
 export class MapThingRepository implements ThingRepository {
