@@ -1,6 +1,6 @@
-import { Name } from "../name";
-import { Thing } from "../thing";
-import { ThingRepository } from "../thing_repository";
+import { Name } from "./name";
+import { Thing } from "./thing";
+import { ThingRepository } from "./thing_repository";
 
 export class ThingFactory {
   constructor(private readonly repository: ThingRepository) {}
