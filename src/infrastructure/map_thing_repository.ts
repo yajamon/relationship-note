@@ -1,8 +1,8 @@
 import { Thing } from "../domain/thing";
 import { ThingRepository } from "../domain/thing_repository";
 import { ThingId } from "../thing_id";
+import { NumberThingId } from "../thing_id/number_thing_id";
 import { incrementalGenerator } from "./incremental_generator";
-import { NumberThingId } from "./number_thing_id";
 
 export class MapThingRepository implements ThingRepository {
   private idGenerator = incrementalGenerator(1);
