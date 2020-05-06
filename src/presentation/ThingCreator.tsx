@@ -1,7 +1,7 @@
 import React from "react";
-import { Name } from "../domain/name";
-import { Thing } from "../domain/thing";
-import { ThingFactory } from "../domain/thing_factory";
+import { Name } from "../core/name";
+import { Thing } from "../core/thing";
+import { ThingFactory } from "../core/thing_factory";
 
 type Prop = {
   onCreate?: (thing: Thing) => void;
