@@ -1,5 +1,5 @@
+import { Name } from "../name";
 import { Association } from "./association";
-import { Name } from "./name";
 import { ThingId } from "./thing_id";
 
 export class Thing {
