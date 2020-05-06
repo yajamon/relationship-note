@@ -1,5 +1,5 @@
 import React from "react";
-import { Thing } from "../thing";
+import { Thing } from "../core/thing";
 import { ThingView } from "./ThingView";
 
 type Prop = {
